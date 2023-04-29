@@ -80,21 +80,3 @@ class DBHandler:
         cursor = self.c.cursor()
         cursor.execute(query)
         return cursor.fetchall()
-
-
-if __name__ == "__main__":
-    d = DBHandler()
-
-    for k, v in d.get_all().items():
-        print(k)
-        print(v)
-
-
-    # c = Contact("John", "McAdams", "Male", 12, 9, 1997, "Alpahbet Inc.")
-    # c.add_phone("+998 96 127 18 82")
-    # c.add_phone("+998 97 100 29 92")
-    # c.add_email("johnmcadams@google.com")
-    # c.add_email("john1997129@gmail.com")
-    # c.add_address("Uzbekistan", "Tashkent", "Amir Temur", 45)
-
-    # d.create_contact(c)

@@ -98,10 +98,3 @@ class AddContact (QWidget):
 
 class ContactInfo:
     pass
-
-
-if __name__ == "__main__":
-    app = QApplication([])
-    win = MainWindow()
-    win.show()
-    exit(app.exec())
