@@ -14,6 +14,7 @@ class MainWindow (QWidget):
         self.setLayout(self.v)
 
         self.list = QListWidget()
+        self.list.doubleClicked.connect(self.get_info)
         self.v.addWidget(self.list)
 
         self.h_box = QHBoxLayout()
@@ -31,6 +32,10 @@ class MainWindow (QWidget):
         self.list.clear()
         for line in data:
             self.list.addItem(line[0])
+    
+    def get_info(self):
+        print(self.list.selectedItems()[0].text())
+        print(self.db.get_contact_info(*self.list.selectedItems()[0].text().split(" ")))
     
     def open_add_window(self):
         if self.create_window is None:

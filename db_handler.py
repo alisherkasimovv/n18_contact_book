@@ -80,3 +80,36 @@ class DBHandler:
         cursor = self.c.cursor()
         cursor.execute(query)
         return cursor.fetchall()
+
+    def get_contact_info(self, name, last):
+        query = f"""SELECT * FROM contacts
+            WHERE first_name = '{name}' AND last_name = '{last}';
+        """
+        cursor = self.c.cursor()
+        cursor.execute(query)
+        data = cursor.fetchone()
+        print(data)
+
+        c = Contact(first=data[1],
+                    last=data[2],
+                    company=data[3],
+                    day=data[4],
+                    month=data[5],
+                    year=data[6],
+                    gender=data[7])
+        c.id = data[0]
+
+        cursor.execute(f"SELECT phone FROM contact_phones WHERE contact_id = {c.id};")
+        data = cursor.fetchall()
+
+        for i in data:
+            c.add_phone(i[0])
+
+        cursor.execute(f"SELECT email FROM contact_emails WHERE contact_id = {c.id};")
+        data = cursor.fetchall()
+
+        for i in data:
+            c.add_email(i[0])
+
+        # TODO: Add address and social links fetch
+        return c

@@ -103,4 +103,5 @@ SELECT * FROM contacts
     LEFT JOIN contact_phones ON contacts.id = contact_phones.contact_id
     LEFT JOIN contact_emails ON contacts.id = contact_emails.contact_id
     LEFT JOIN contact_addresses ON contacts.id = contact_addresses.contact_id
-    LEFT JOIN contact_socials ON contacts.id = contact_socials.contact_id;
+    LEFT JOIN contact_socials ON contacts.id = contact_socials.contact_id
+    WHERE first_name = '' AND last_name = '';
