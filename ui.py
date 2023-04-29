@@ -5,6 +5,7 @@ from db_handler import DBHandler
 
 class MainWindow (QWidget):
     def __init__(self):
+        self.create_window = None
         super().__init__()
         self.db = DBHandler()
 
@@ -16,6 +17,7 @@ class MainWindow (QWidget):
 
         self.h_box = QHBoxLayout()
         self.add = QPushButton("Add...")
+        self.add.clicked.connect(self.open_add_window)
         self.delete = QPushButton("Delete")
 
         self.h_box.addWidget(self.add)
@@ -28,6 +30,13 @@ class MainWindow (QWidget):
         self.list.clear()
         for line in data:
             self.list.addItem(line[0])
+    
+    def open_add_window(self):
+        if self.create_window is None:
+            self.create_window = AddContact()
+            self.create_window.show()
+        else:
+            self.create_window = None
 
 
 class AddContact (QWidget):
@@ -75,6 +84,15 @@ class AddContact (QWidget):
         self.grid.addWidget(self.email)
         self.grid.addWidget(self.phone)
 
+        self.cancel = QPushButton("Cancel")
+        self.clear = QPushButton("Clear")
+        self.save = QPushButton("Save")
+        buttonGroup = QHBoxLayout()
+        buttonGroup.addWidget(self.cancel)
+        buttonGroup.addWidget(self.clear)
+        buttonGroup.addWidget(self.save)
+        self.grid.addLayout(buttonGroup)
+
         self.setLayout(self.grid)
 
 
@@ -84,6 +102,6 @@ class ContactInfo:
 
 if __name__ == "__main__":
     app = QApplication([])
-    win = AddContact()
+    win = MainWindow()
     win.show()
     exit(app.exec())
